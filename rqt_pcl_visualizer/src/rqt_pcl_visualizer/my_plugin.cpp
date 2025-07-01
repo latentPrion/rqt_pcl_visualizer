@@ -72,8 +72,17 @@ void MyPlugin::shutdownPlugin()
 
 }
 
-void MyPlugin::pointCloud2Callback(const PointCloudT::ConstPtr& msg)
+void MyPlugin::pointCloud2Callback(const boost::shared_ptr<PointCloudT> &boost_msg_ptr)
 {
+  PointCloudT::ConstPtr msg(
+        boost_msg_ptr.get(),
+        [boost_msg_ptr](const PointCloudT* /*p*/) {
+            // The lambda's job is just to keep boost_msg_ptr alive.
+            // When this lambda (and thus the std::shared_ptr) goes out of scope,
+            // boost_msg_ptr's ref count will naturally decrement.
+            // No explicit 'delete p;' here as boost_msg_ptr handles it.
+        }
+    );
   ROS_DEBUG_STREAM("msg " << msg->size());
   boost::mutex::scoped_lock(lock_);
   point_cloud_queue_.push(msg);
@@ -173,4 +182,4 @@ void triggerConfiguration()
 }*/
 
 } // namespace
-PLUGINLIB_DECLARE_CLASS(rqt_pcl_visualizer, MyPlugin, rqt_pcl_visualizer::MyPlugin, rqt_gui_cpp::Plugin)
+PLUGINLIB_EXPORT_CLASS(rqt_pcl_visualizer::MyPlugin, rqt_gui_cpp::Plugin)

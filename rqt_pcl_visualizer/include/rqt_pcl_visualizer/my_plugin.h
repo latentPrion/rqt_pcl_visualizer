@@ -47,7 +47,7 @@ private:
   ros::Subscriber point_cloud2_sub_;
   boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer_;
   // PointCloudT::Ptr cloud_;
-  void pointCloud2Callback(const PointCloudT::ConstPtr& msg);
+  void pointCloud2Callback(const boost::shared_ptr<PointCloudT>& msg);
 
   QTimer* timer_;
   boost::mutex lock_;

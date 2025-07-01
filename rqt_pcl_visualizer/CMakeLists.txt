@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.1)
 project(rqt_pcl_visualizer)
 
 ## Find catkin macros and libraries
@@ -15,10 +15,13 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 
+find_package(PCL 1.2 REQUIRED)
 if("${qt_gui_cpp_USE_QT_MAJOR_VERSION} " STREQUAL "5 ")
-  find_package(Qt5Widgets REQUIRED)
+  find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools)
+  include(${Qt5Widgets_DIR}/Qt5WidgetsConfigExtras.cmake)
+  include(${Qt5Core_DIR}/Qt5CoreConfigExtras.cmake)
 else()
-  find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
+  find_package(Qt4 REQUIRED COMPONENTS QtCore QtGui)
   include(${QT_USE_FILE})
 endif()
 
@@ -159,7 +162,7 @@ add_library(${PROJECT_NAME}
 ## Declare a C++ executable
 add_executable(pcl_visualizer_demo ../pcl_visualizer_demo/pcl_visualizer_demo.cpp)
 target_link_libraries(pcl_visualizer_demo
-  ${catkin_LIBRARIES}
+  ${catkin_LIBRARIES} ${PCL_LIBRARIES}
 )
 
 ## Add cmake target dependencies of the executable
@@ -168,7 +171,7 @@ target_link_libraries(pcl_visualizer_demo
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
+  ${catkin_LIBRARIES} ${PCL_LIBRARIES}
 )
 
 if("${qt_gui_cpp_USE_QT_MAJOR_VERSION} " STREQUAL "5 ")

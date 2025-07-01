@@ -1,4 +1,4 @@
-<library path="lib/librqt_pcl_visualizer">
+<library path="librqt_pcl_visualizer">
   <class name="rqt_pcl_visualizer/MyPlugin" type="rqt_pcl_visualizer::MyPlugin" base_class_type="rqt_gui_cpp::Plugin">
     <description>
       Display point clouds with the PCL visualizer

@@ -17,7 +17,7 @@
    <item>
     <layout class="QGridLayout" name="grid_layout">
       <item>
-        <widget class="QVTKWidget" name="qvtk_widget"/>
+        <widget class="PCLQVTKWidget" name="qvtk_widget"/>
       </item>
     </layout>
    </item>
@@ -25,9 +25,9 @@
  </widget>
  <customwidgets>
    <customwidget>
-     <class>QVTKWidget</class>
+     <class>PCLQVTKWidget</class>
        <extends>QWidget</extends>
-       <header>QVTKWidget.h</header>
+       <header>pcl/visualization/qvtk_compatibility.h</header>
      </customwidget>
    </customwidgets>
  <resources/>
